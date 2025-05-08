@@ -12,6 +12,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "*") // 🚀 This allows CORS from any origin (even local file://)
 public class JsonReceiverController {
 
   private final List<RequestDto> requestStore = new ArrayList<>();
@@ -69,11 +70,12 @@ public class JsonReceiverController {
   }
 
   private String extractDimensionId(String jsonString) throws IOException {
-    List<Map<String, String>> idList = objectMapper.readValue(jsonString, new TypeReference<>() {});
+    List<Map<String, String>> idList = objectMapper.readValue(jsonString, new TypeReference<>() {
+    });
     return idList.stream()
-      .filter(map -> map.containsKey("dimensionId"))
-      .findFirst()
-      .get()
-      .get("dimensionId");
+        .filter(map -> map.containsKey("dimensionId"))
+        .findFirst()
+        .get()
+        .get("dimensionId");
   }
 }
