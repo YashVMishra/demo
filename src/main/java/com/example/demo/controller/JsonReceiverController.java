@@ -78,4 +78,11 @@ public class JsonReceiverController {
         .get()
         .get("dimensionId");
   }
+
+  @DeleteMapping("/clear")
+  public ResponseEntity<String> clearData() {
+    requestStore.clear();
+    return ResponseEntity.ok("All stored data has been cleared!");
+  }
+
 }
